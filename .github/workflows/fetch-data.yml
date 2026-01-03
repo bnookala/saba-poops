@@ -46,3 +46,7 @@ jobs:
           git add site/data.json
           git commit -m "Update litter-robot data [skip ci]"
           git push
+
+      - name: Trigger Netlify deploy
+        if: steps.git-check.outputs.changed == 'true'
+        run: curl -X POST -d {} ${{ secrets.NETLIFY_BUILD_HOOK }}
