@@ -1,0 +1,47 @@
+name: Fetch Litter-Robot Data
+
+on:
+  schedule:
+    # Run every 4 hours
+    - cron: '0 */4 * * *'
+  workflow_dispatch:  # Allow manual triggers
+
+jobs:
+  fetch-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+
+      - name: Set up Python
+        run: uv python install 3.13
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Fetch data from Litter-Robot API
+        env:
+          LITTERBOT_USERNAME: ${{ secrets.LITTERBOT_USERNAME }}
+          LITTERBOT_PASSWORD: ${{ secrets.LITTERBOT_PASSWORD }}
+          CAT_NAME: ${{ secrets.CAT_NAME }}
+        run: uv run python fetch_data.py
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --quiet site/data.json || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push if changed
+        if: steps.git-check.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add site/data.json
+          git commit -m "Update litter-robot data [skip ci]"
+          git push
