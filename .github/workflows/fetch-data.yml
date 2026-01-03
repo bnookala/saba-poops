@@ -9,6 +9,7 @@ on:
 jobs:
   fetch-data:
     runs-on: ubuntu-latest
+    environment: litterbot-fetch
 
     steps:
       - name: Checkout repository

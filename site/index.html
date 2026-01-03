@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Litter-Robot Wrapped</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            overflow: hidden;
+            background: #1a1a2e;
+        }
+
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 1.5rem;
+            z-index: 1000;
+        }
+
+        .loading.hidden {
+            display: none;
+        }
+
+        .loading-emoji {
+            font-size: 4rem;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .wrapped-container {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            color: white;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            pointer-events: none;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        .slide.exiting {
+            opacity: 0;
+            transform: scale(1.1);
+        }
+
+        /* Gradient backgrounds for each slide */
+        .slide-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .slide-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .slide-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .slide-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .slide-5 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .slide-6 { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333; }
+        .slide-7 { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); color: #333; }
+        .slide-8 { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); color: #333; }
+        .slide-9 { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
+        .slide-10 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+
+        .big-emoji {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: bounceIn 0.8s ease;
+        }
+
+        .slide.active .big-emoji {
+            animation: bounceIn 0.8s ease;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.3); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .big-stat {
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1;
+            margin: 1rem 0;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+        }
+
+        .stat-label {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-weight: 700;
+        }
+
+        .personality-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .personality-list li {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0.8rem 0;
+            animation: slideInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .slide.active .personality-list li:nth-child(1) { animation-delay: 0.3s; }
+        .slide.active .personality-list li:nth-child(2) { animation-delay: 0.5s; }
+        .slide.active .personality-list li:nth-child(3) { animation-delay: 0.7s; }
+
+        @keyframes slideInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 350px;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item .value {
+            font-size: 2rem;
+            font-weight: 900;
+        }
+
+        .stat-item .label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .trend-indicator {
+            font-size: 3rem;
+            margin-top: 1rem;
+        }
+
+        /* Emoji animation container */
+        .emoji-fx {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .fx-emoji {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0;
+        }
+
+        /* Animation 1: Falling rain */
+        .fx-emoji.anim-rain {
+            top: -50px;
+            animation: float-down 4s ease-in forwards;
+        }
+
+        @keyframes float-down {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Animation 2: Rising bubbles */
+        .fx-emoji.anim-rise {
+            top: auto;
+            bottom: -50px;
+            animation: float-up 4s ease-out forwards;
+        }
+
+        @keyframes float-up {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+        }
+
+        /* Animation 3: Burst from center */
+        .fx-emoji.anim-burst {
+            left: 50%;
+            top: 50%;
+            animation: burst-out 2s ease-out forwards;
+        }
+
+        @keyframes burst-out {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(1); opacity: 0; }
+        }
+
+        /* Animation 4: Gentle float */
+        .fx-emoji.anim-float {
+            animation: gentle-float 5s ease-in-out forwards;
+        }
+
+        @keyframes gentle-float {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.7; }
+            50% { transform: translate(var(--dx), -100px) rotate(180deg); }
+            80% { opacity: 0.7; }
+            100% { transform: translate(0, 0) rotate(360deg); opacity: 0; }
+        }
+
+        /* Animation 5: Spiral in */
+        .fx-emoji.anim-spiral {
+            left: 50%;
+            top: 50%;
+            animation: spiral-in 3s ease-in-out forwards;
+        }
+
+        @keyframes spiral-in {
+            0% { transform: translate(-50%, -50%) rotate(0deg) translateX(200px) scale(0.3); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translate(-50%, -50%) rotate(720deg) translateX(0) scale(1.5); opacity: 0; }
+        }
+
+        /* Animation 6: Twinkle in place */
+        .fx-emoji.anim-twinkle {
+            animation: twinkle 2s ease-in-out forwards;
+        }
+
+        @keyframes twinkle {
+            0% { transform: scale(0) rotate(0deg); opacity: 0; }
+            25% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+            50% { transform: scale(0.8) rotate(-10deg); opacity: 0.8; }
+            75% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: scale(0) rotate(0deg); opacity: 0; }
+        }
+
+        /* Animation 7: Zoom across */
+        .fx-emoji.anim-zoom {
+            left: -50px;
+            animation: zoom-across 1.5s ease-in forwards;
+        }
+
+        @keyframes zoom-across {
+            0% { transform: translateX(0) scale(0.5); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateX(calc(100vw + 100px)) scale(1.5); opacity: 0; }
+        }
+
+        /* Bar chart styles */
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 8px;
+            height: 100px;
+            width: 100%;
+            max-width: 350px;
+            margin-top: 4rem;
+            padding: 0 10px;
+        }
+
+        .bar-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            max-width: 40px;
+        }
+
+        .bar {
+            width: 100%;
+            background: rgba(255,255,255,0.9);
+            border-radius: 4px 4px 0 0;
+            height: 0;
+            transition: height 0.8s ease-out;
+        }
+
+        .bar-label {
+            font-size: 0.7rem;
+            margin-top: 6px;
+            opacity: 0.9;
+            font-weight: 700;
+        }
+
+        .bar-value {
+            font-size: 0.75rem;
+            font-weight: 900;
+            margin-bottom: 4px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .slide.active .bar {
+            animation: growBar 0.8s ease-out forwards;
+        }
+
+        .slide.active .bar-value {
+            animation: fadeInValue 0.3s ease-out forwards;
+        }
+
+        .slide.active .bar-column:nth-child(1) .bar { animation-delay: 0.1s; }
+        .slide.active .bar-column:nth-child(2) .bar { animation-delay: 0.2s; }
+        .slide.active .bar-column:nth-child(3) .bar { animation-delay: 0.3s; }
+        .slide.active .bar-column:nth-child(4) .bar { animation-delay: 0.4s; }
+        .slide.active .bar-column:nth-child(5) .bar { animation-delay: 0.5s; }
+        .slide.active .bar-column:nth-child(6) .bar { animation-delay: 0.6s; }
+        .slide.active .bar-column:nth-child(7) .bar { animation-delay: 0.7s; }
+
+        .slide.active .bar-column:nth-child(1) .bar-value { animation-delay: 0.9s; }
+        .slide.active .bar-column:nth-child(2) .bar-value { animation-delay: 1.0s; }
+        .slide.active .bar-column:nth-child(3) .bar-value { animation-delay: 1.1s; }
+        .slide.active .bar-column:nth-child(4) .bar-value { animation-delay: 1.2s; }
+        .slide.active .bar-column:nth-child(5) .bar-value { animation-delay: 1.3s; }
+        .slide.active .bar-column:nth-child(6) .bar-value { animation-delay: 1.4s; }
+        .slide.active .bar-column:nth-child(7) .bar-value { animation-delay: 1.5s; }
+
+        @keyframes growBar {
+            from { height: 0; }
+            to { height: var(--bar-height); }
+        }
+
+        @keyframes fadeInValue {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Progress bar */
+        .progress-container {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: white;
+            transform: scale(1.3);
+        }
+
+        .progress-dot.completed {
+            background: rgba(255,255,255,0.7);
+        }
+
+        /* Tap hint */
+        .tap-hint {
+            position: absolute;
+            bottom: 4.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            opacity: 0.6;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Progress bar */
+        .progress-bar-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: rgba(255,255,255,0.8);
+            animation: fillBar 10s linear forwards;
+        }
+
+        @keyframes fillBar {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        /* Spinning emoji */
+        .spin {
+            animation: spin 1s ease-in-out;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Wiggle animation */
+        .wiggle {
+            animation: wiggle 0.5s ease infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        /* Pop animation for stats */
+        .pop-in {
+            animation: popIn 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .slide.active .pop-in {
+            animation: popIn 0.6s ease forwards;
+        }
+
+        .slide.active .delay-1 { animation-delay: 0.2s; }
+        .slide.active .delay-2 { animation-delay: 0.4s; }
+        .slide.active .delay-3 { animation-delay: 0.6s; }
+        .slide.active .delay-4 { animation-delay: 0.8s; }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading">
+        <div class="loading-emoji">🐱</div>
+        <div>Loading...</div>
+    </div>
+
+    <div class="wrapped-container" id="wrapped">
+        <!-- Slide 1: Intro -->
+        <div class="slide slide-1 active" data-emojis="sparkles,star,dizzy" data-anim="twinkle">
+            <div class="big-emoji">😺</div>
+            <div class="title" id="intro-title">Loading...</div>
+            <div class="subtitle" id="intro-date-range"></div>
+            <div class="stat-label" style="margin-top: 2rem; font-size: 1.1rem;">
+                A week in the life of<br><strong style="font-size: 1.8rem;" id="intro-cat-name"></strong>
+            </div>
+            <div style="margin-top: 1rem; opacity: 0.7; font-size: 0.9rem;" id="intro-robot-name"></div>
+            <div class="emoji-fx"></div>
+        </div>
+
+        <!-- Slide 2: Personality -->
+        <div class="slide slide-2" data-emojis="cat,smirk_cat,paw_prints" data-anim="spiral">
+            <div class="big-emoji">😼</div>
+            <div class="title" id="personality-title">Vibe</div>
+            <ul class="personality-list" id="personality-list"></ul>
+            <div class="emoji-fx"></div>
+        </div>
+
+        <!-- Slide 3: Total Visits -->
+        <div class="slide slide-3" data-emojis="poop,cat,paw_prints" data-anim="rise">
+            <div class="big-emoji">🐾</div>
+            <div class="title" id="visits-title">Bathroom Trips</div>
+            <div class="big-stat pop-in" id="total-visits">0</div>
+            <div class="stat-label pop-in delay-1">visits this week</div>
+            <div class="bar-chart" id="bar-chart"></div>
+            <div class="subtitle pop-in delay-2" style="margin-top: 1rem;" id="visits-avg"></div>
+            <div class="emoji-fx"></div>
+        </div>
+
+        <!-- Slide 4: Timing -->
+        <div class="slide slide-4" data-emojis="zap,runner,dash,cat" data-anim="zoom">
+            <div class="big-emoji">😺</div>
+            <div class="title" id="timing-title">Timing</div>
+            <div class="stat-row" style="flex-direction: column; gap: 1.5rem; margin-top: 1.5rem;">
+                <div class="stat-item pop-in">
+                    <div class="label" id="longest-label">Longest Holdout</div>
+                    <div class="value" style="font-size: 2.5rem;" id="longest-gap"></div>
+                </div>
+                <div class="stat-item pop-in delay-1">
+                    <div class="label" id="shortest-label">Quickest Return</div>
+                    <div class="value" style="font-size: 2.5rem;" id="shortest-gap"></div>
+                </div>
+            </div>
+            <div class="emoji-fx"></div>
+        </div>
+
+        <!-- Slide 5: Weight -->
+        <div class="slide slide-5" data-emojis="scales,cat,smile_cat" data-anim="float">
+            <div class="big-emoji">😸</div>
+            <div class="title" id="weight-title">Weigh-Ins</div>
+            <div class="big-stat pop-in" id="avg-weight"></div>
+            <div class="stat-label" id="weight-label">average weight</div>
+            <div class="stat-row pop-in delay-1" style="margin-top: 1.5rem;">
+                <div class="stat-item">
+                    <div class="value" id="min-weight"></div>
+                    <div class="label">Lightest</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value" id="max-weight"></div>
+                    <div class="label">Heaviest</div>
+                </div>
+            </div>
+            <div class="trend-indicator pop-in delay-2" id="weight-trend"></div>
+            <div class="emoji-fx"></div>
+        </div>
+
+        <!-- Slide 6: Peak Hour -->
+        <div class="slide slide-6" data-emojis="moon,sun,alarm_clock,cat" data-anim="rain">
+            <div class="big-emoji">🐱</div>
+            <div class="title" id="peak-title">Potty Hour</div>
+            <div class="big-stat pop-in" id="peak-hour"></div>
+            <div class="stat-label pop-in delay-1" id="peak-count"></div>
+            <div class="subtitle pop-in delay-2" style="margin-top: 1rem;" id="peak-vibe"></div>
+            <div class="emoji-fx"></div>
+        </div>
+
+        <!-- Slide 7: Busiest Day -->
+        <div class="slide slide-7" data-emojis="calendar,fire,dart,cat" data-anim="burst">
+            <div class="big-emoji">😺</div>
+            <div class="title" id="busiest-title">Busiest Day</div>
+            <div class="big-stat pop-in" style="font-size: 2.5rem;" id="busiest-day"></div>
+            <div class="stat-label pop-in delay-1" style="font-size: 1.1rem; opacity: 0.8;" id="busiest-display"></div>
+            <div class="stat-label pop-in delay-2" style="margin-top: 0.5rem;" id="busiest-count"></div>
+            <div class="subtitle pop-in delay-3" style="margin-top: 1rem;" id="busiest-vibe"></div>
+            <div class="emoji-fx"></div>
+        </div>
+
+        <!-- Slide 8: Robot Stats -->
+        <div class="slide slide-8" data-emojis="robot,arrows_counterclockwise,sparkles,cat" data-anim="spiral">
+            <div class="big-emoji">🤖</div>
+            <div class="title" id="robot-title">Robot Butler</div>
+            <div class="subtitle" style="margin-bottom: 1rem;" id="robot-subtitle"></div>
+            <div class="stat-row" style="flex-direction: column; gap: 1.5rem; margin-top: 1rem;">
+                <div class="stat-item pop-in">
+                    <div class="value" style="font-size: 3rem;" id="clean-cycles"></div>
+                    <div class="label" id="clean-label">Clean Cycles</div>
+                </div>
+                <div class="stat-item pop-in delay-1">
+                    <div class="value" style="font-size: 2rem;" id="interruptions"></div>
+                    <div class="label" id="interruptions-label">Interruptions</div>
+                    <div class="label" style="font-size: 0.8rem; margin-top: 0.3rem;" id="interruptions-note"></div>
+                </div>
+            </div>
+            <div class="emoji-fx"></div>
+        </div>
+
+        <!-- Slide 9: Output -->
+        <div class="slide slide-9" data-emojis="gem,crown,trophy,cat" data-anim="rise">
+            <div class="big-emoji">😹</div>
+            <div class="title" id="output-title">Output</div>
+            <div class="big-stat pop-in" id="output-oz"></div>
+            <div class="stat-label pop-in delay-1" id="output-label">of precious kitty cargo</div>
+            <div class="subtitle pop-in delay-2" style="margin-top: 1rem;" id="output-lbs"></div>
+            <div class="emoji-fx"></div>
+        </div>
+
+        <!-- Slide 10: Finale -->
+        <div class="slide slide-10" data-emojis="tada,sparkles,cat,purple_heart,star,confetti_ball" data-anim="burst">
+            <div class="big-emoji wiggle">😻</div>
+            <div class="title" id="finale-title">That's a Wrap!</div>
+            <div class="subtitle">Another week of purr-fection 🐾</div>
+            <div style="margin-top: 2rem; font-size: 1.2rem;">
+                <div class="pop-in" id="finale-thanks"></div>
+                <div class="pop-in delay-1" style="font-size: 0.9rem; margin-top: 1rem; opacity: 0.8;" id="finale-robot"></div>
+            </div>
+            <div class="emoji-fx"></div>
+        </div>
+
+        <!-- Progress dots -->
+        <div class="progress-container" id="progress"></div>
+
+        <!-- Tap hint -->
+        <div class="tap-hint">← Tap left | Tap right → • Hold to pause</div>
+
+        <!-- Progress bar -->
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </div>
+
+    <script>
+        // Emoji mappings
+        const EMOJIS = {
+            sparkles: '✨', star: '⭐', dizzy: '💫',
+            cat: '🐱', smirk_cat: '😼', paw_prints: '🐾',
+            poop: '💩', zap: '⚡', runner: '🏃', dash: '💨',
+            scales: '⚖️', smile_cat: '😸', moon: '🌙', sun: '☀️',
+            alarm_clock: '⏰', calendar: '📅', fire: '🔥', dart: '🎯',
+            robot: '🤖', arrows_counterclockwise: '🔄',
+            gem: '💎', crown: '👑', trophy: '🏆',
+            tada: '🎉', purple_heart: '💜', confetti_ball: '🎊'
+        };
+
+        // Personality trait emojis
+        const TRAIT_EMOJIS = {
+            'Night Owl': '🦉',
+            'Early Bird': '🐦',
+            'Afternoon Aristocat': '🎩',
+            'Evening Eliminator': '🌙',
+            'Creature of Habit': '🕐',
+            'Chaotic Pooper': '🎲',
+            'Weekend Warrior': '🎉',
+            'Weekday Regular': '💼'
+        };
+
+        let data = null;
+
+        async function loadData() {
+            try {
+                const response = await fetch('data.json');
+                data = await response.json();
+                populateSlides();
+                document.getElementById('loading').classList.add('hidden');
+                initSlideshow();
+            } catch (error) {
+                console.error('Failed to load data:', error);
+                document.getElementById('loading').innerHTML = `
+                    <div class="loading-emoji">😿</div>
+                    <div>Failed to load data</div>
+                `;
+            }
+        }
+
+        function populateSlides() {
+            const catName = data.cat_name;
+            const robotName = data.robot_name;
+
+            // Slide 1: Intro
+            document.getElementById('intro-title').textContent = `${catName}'s Wrapped`;
+            document.getElementById('intro-date-range').textContent = data.date_range.display;
+            document.getElementById('intro-cat-name').textContent = `🐱 ${catName} 🐱`;
+            document.getElementById('intro-robot-name').textContent = `Powered by ${robotName}, a Litter-Robot`;
+
+            // Slide 2: Personality
+            document.getElementById('personality-title').textContent = `${catName}'s Vibe`;
+            const personalityList = document.getElementById('personality-list');
+            const traits = data.personality_traits.length > 0 ? data.personality_traits : ['Mysterious Moggy'];
+            traits.forEach(trait => {
+                const li = document.createElement('li');
+                const emoji = TRAIT_EMOJIS[trait] || '🎭';
+                li.textContent = `${trait} ${emoji}`;
+                personalityList.appendChild(li);
+            });
+
+            // Slide 3: Visits
+            document.getElementById('visits-title').textContent = `${catName}'s Bathroom Trips`;
+            document.getElementById('total-visits').textContent = data.total_visits;
+            document.getElementById('visits-avg').innerHTML = `${catName} averaged <strong>${data.visits_per_day}</strong> per day! 🐱`;
+
+            // Bar chart
+            const barChart = document.getElementById('bar-chart');
+            const maxCount = Math.max(...data.chart_data.map(d => d.count), 1);
+            data.chart_data.forEach(day => {
+                const col = document.createElement('div');
+                col.className = 'bar-column';
+                const height = Math.round((day.count / maxCount) * 100);
+                col.innerHTML = `
+                    <div class="bar-value">${day.count}</div>
+                    <div class="bar" style="--bar-height: ${height}px;"></div>
+                    <div class="bar-label">${day.weekday}<br><span style="font-size:0.6rem;opacity:0.8;">${day.display}</span></div>
+                `;
+                barChart.appendChild(col);
+            });
+
+            // Slide 4: Timing
+            document.getElementById('timing-title').textContent = `${catName}'s Timing`;
+            document.getElementById('longest-label').textContent = `Longest Holdout 🐱`;
+            document.getElementById('longest-gap').textContent = `🏆 ${data.timing.longest_gap}`;
+            document.getElementById('shortest-label').textContent = `Quickest Return 🐾`;
+            document.getElementById('shortest-gap').textContent = `⚡ ${data.timing.shortest_gap}`;
+
+            // Slide 5: Weight
+            document.getElementById('weight-title').textContent = `${catName}'s Weigh-Ins`;
+            document.getElementById('avg-weight').innerHTML = `${data.weight.average}<span style="font-size: 2rem;">lbs</span>`;
+            document.getElementById('weight-label').textContent = `average weight 🐱`;
+            document.getElementById('min-weight').textContent = data.weight.min;
+            document.getElementById('max-weight').textContent = data.weight.max;
+
+            const trendText = {
+                gaining: '📈 Chonking up!',
+                losing: '📉 Slimming down!',
+                stable: '➡️ Purrfectly stable!'
+            };
+            document.getElementById('weight-trend').textContent = trendText[data.weight.trend] || trendText.stable;
+
+            // Slide 6: Peak Hour
+            document.getElementById('peak-title').textContent = `${catName}'s Potty Hour`;
+            document.getElementById('peak-hour').textContent = data.peak_hour.display;
+            document.getElementById('peak-count').textContent = `${data.peak_hour.count} visits at this time`;
+
+            const hour = data.peak_hour.hour;
+            let peakVibe;
+            if (hour < 6 || hour >= 22) {
+                peakVibe = `🌙 ${catName} is a night owl!`;
+            } else if (hour < 18) {
+                peakVibe = `☀️ ${catName} keeps it daytime!`;
+            } else {
+                peakVibe = `🌆 ${catName} has evening rituals!`;
+            }
+            document.getElementById('peak-vibe').textContent = peakVibe;
+
+            // Slide 7: Busiest Day
+            document.getElementById('busiest-title').textContent = `${catName}'s Busiest Day`;
+            if (data.busiest_date) {
+                document.getElementById('busiest-day').textContent = data.busiest_date.day_name;
+                document.getElementById('busiest-display').textContent = data.busiest_date.display;
+                document.getElementById('busiest-count').textContent = `${data.busiest_date.count} visits 🐾`;
+                document.getElementById('busiest-vibe').textContent = data.busiest_date.is_weekend
+                    ? `🎉 ${catName} parties on weekends!`
+                    : `💼 ${catName} keeps a weekday schedule!`;
+            }
+
+            // Slide 8: Robot Stats
+            document.getElementById('robot-title').textContent = `${catName}'s Robot Butler`;
+            document.getElementById('robot-subtitle').textContent = `${robotName} worked hard!`;
+            document.getElementById('clean-cycles').textContent = `🔄 ${data.robot_stats.clean_cycles}`;
+            document.getElementById('clean-label').textContent = `Clean Cycles for ${catName}`;
+            document.getElementById('interruptions').textContent = `🚨 ${data.robot_stats.interruptions}`;
+            document.getElementById('interruptions-label').textContent = `Times ${catName} interrupted`;
+            if (data.robot_stats.interruptions > 5) {
+                document.getElementById('interruptions-note').textContent = '(Curious kitty! 🐱)';
+            }
+
+            // Slide 9: Output
+            document.getElementById('output-title').textContent = `${catName}'s Output`;
+            document.getElementById('output-oz').innerHTML = `${data.output.oz}<span style="font-size: 2rem;">oz</span>`;
+            document.getElementById('output-label').textContent = `of precious kitty cargo 🐱`;
+            document.getElementById('output-lbs').innerHTML = `${catName} produced <strong>${data.output.lbs} lbs</strong> of treasure! 💎`;
+
+            // Slide 10: Finale
+            document.getElementById('finale-title').textContent = `That's ${catName}'s Wrap!`;
+            document.getElementById('finale-thanks').textContent = `🐱 ${catName} says thanks! 🐱`;
+            document.getElementById('finale-robot').textContent = `Kept clean by ${robotName}, a Litter-Robot`;
+
+            // Update page title
+            document.title = `${catName}'s Wrapped`;
+        }
+
+        function initSlideshow() {
+            const slides = document.querySelectorAll('.slide');
+            const progressContainer = document.getElementById('progress');
+            let currentSlide = 0;
+            let autoAdvanceTimer;
+            const SLIDE_DURATION = 10000;
+
+            // Create progress dots
+            slides.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'progress-dot' + (i === 0 ? ' active' : '');
+                progressContainer.appendChild(dot);
+            });
+
+            const progressDots = document.querySelectorAll('.progress-dot');
+
+            function getEmojisForSlide(slide) {
+                const emojiKeys = slide.dataset.emojis?.split(',') || ['sparkles'];
+                return emojiKeys.map(key => EMOJIS[key] || '✨');
+            }
+
+            function createEmojiFx(slideIndex) {
+                const slide = slides[slideIndex];
+                const emojis = getEmojisForSlide(slide);
+                const animType = slide.dataset.anim || 'rain';
+                const fxContainer = slide.querySelector('.emoji-fx');
+                if (!fxContainer) return;
+
+                fxContainer.innerHTML = '';
+                const count = animType === 'burst' ? 20 : animType === 'twinkle' ? 12 : 15;
+
+                for (let i = 0; i < count; i++) {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'fx-emoji anim-' + animType;
+                    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.animationDelay = (Math.random() * 2) + 's';
+                    emoji.style.fontSize = (1.5 + Math.random() * 1.5) + 'rem';
+
+                    switch(animType) {
+                        case 'rain':
+                            emoji.style.left = Math.random() * 100 + '%';
+                            break;
+                        case 'rise':
+                            emoji.style.left = Math.random() * 100 + '%';
+                            break;
+                        case 'burst':
+                            const angle = (i / count) * 360;
+                            const distance = 150 + Math.random() * 200;
+                            const tx = Math.cos(angle * Math.PI / 180) * distance;
+                            const ty = Math.sin(angle * Math.PI / 180) * distance;
+                            emoji.style.setProperty('--tx', tx + 'px');
+                            emoji.style.setProperty('--ty', ty + 'px');
+                            emoji.style.animationDelay = (Math.random() * 0.3) + 's';
+                            break;
+                        case 'float':
+                            emoji.style.left = Math.random() * 100 + '%';
+                            emoji.style.top = Math.random() * 100 + '%';
+                            emoji.style.setProperty('--dx', (Math.random() - 0.5) * 200 + 'px');
+                            break;
+                        case 'spiral':
+                            emoji.style.animationDelay = (i * 0.15) + 's';
+                            break;
+                        case 'twinkle':
+                            emoji.style.left = Math.random() * 100 + '%';
+                            emoji.style.top = Math.random() * 100 + '%';
+                            emoji.style.animationDelay = (Math.random() * 3) + 's';
+                            break;
+                        case 'zoom':
+                            emoji.style.top = (20 + Math.random() * 60) + '%';
+                            emoji.style.animationDelay = (i * 0.3) + 's';
+                            break;
+                    }
+
+                    fxContainer.appendChild(emoji);
+                }
+            }
+
+            function goToSlide(index) {
+                if (index === currentSlide) return;
+
+                slides[currentSlide].classList.remove('active');
+                slides[currentSlide].classList.add('exiting');
+
+                progressDots[currentSlide].classList.remove('active');
+                progressDots[currentSlide].classList.add('completed');
+
+                setTimeout(() => {
+                    slides[currentSlide].classList.remove('exiting');
+                    currentSlide = index;
+                    slides[currentSlide].classList.add('active');
+                    progressDots[currentSlide].classList.add('active');
+                    createEmojiFx(currentSlide);
+                }, 400);
+
+                resetAutoAdvance();
+            }
+
+            function nextSlide() {
+                const next = (currentSlide + 1) % slides.length;
+                goToSlide(next);
+            }
+
+            function resetAutoAdvance() {
+                clearTimeout(autoAdvanceTimer);
+                autoAdvanceTimer = setTimeout(nextSlide, SLIDE_DURATION);
+
+                const progressBar = document.getElementById('progressBar');
+                progressBar.style.animation = 'none';
+                progressBar.offsetHeight;
+                progressBar.style.animation = 'fillBar 10s linear forwards';
+            }
+
+            // Click navigation
+            document.getElementById('wrapped').addEventListener('click', (e) => {
+                if (e.target.closest('.progress-container')) return;
+                const screenWidth = window.innerWidth;
+                const clickX = e.clientX;
+
+                if (clickX < screenWidth * 0.3) {
+                    const prev = (currentSlide - 1 + slides.length) % slides.length;
+                    goToSlide(prev);
+                } else {
+                    nextSlide();
+                }
+            });
+
+            // Touch/mouse pause
+            let isPaused = false;
+
+            document.addEventListener('touchstart', () => {
+                isPaused = true;
+                clearTimeout(autoAdvanceTimer);
+                document.getElementById('progressBar').style.animationPlayState = 'paused';
+            });
+
+            document.addEventListener('touchend', () => {
+                isPaused = false;
+                document.getElementById('progressBar').style.animationPlayState = 'running';
+                autoAdvanceTimer = setTimeout(nextSlide, SLIDE_DURATION);
+            });
+
+            document.addEventListener('mousedown', () => {
+                isPaused = true;
+                clearTimeout(autoAdvanceTimer);
+                document.getElementById('progressBar').style.animationPlayState = 'paused';
+            });
+
+            document.addEventListener('mouseup', () => {
+                isPaused = false;
+                document.getElementById('progressBar').style.animationPlayState = 'running';
+                autoAdvanceTimer = setTimeout(nextSlide, SLIDE_DURATION);
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    const prev = (currentSlide - 1 + slides.length) % slides.length;
+                    goToSlide(prev);
+                }
+            });
+
+            // Swipe support
+            let touchStartX = 0;
+            document.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+            });
+
+            document.addEventListener('touchend', (e) => {
+                const touchEndX = e.changedTouches[0].clientX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        nextSlide();
+                    } else {
+                        const prev = (currentSlide - 1 + slides.length) % slides.length;
+                        goToSlide(prev);
+                    }
+                }
+            });
+
+            // Initialize
+            createEmojiFx(0);
+            resetAutoAdvance();
+        }
+
+        // Load data on page load
+        loadData();
+    </script>
+</body>
+</html>
