@@ -256,10 +256,26 @@ def build_data_json(stats: dict, robot_name: str, cat_name: str) -> dict:
             "is_weekend": busiest_info["weekday"] >= 5,
         }
 
+    # Flat values for TRMNL compatibility
+    weight_trend = stats.get("weight_trend", "stable")
+    weight_change = round(stats.get("weight_change", 0) or 0, 2)
+
     return {
         "cat_name": cat_name,
         "robot_name": robot_name,
         "generated_at": datetime.now(LOCAL_TZ).isoformat(),
+        # Flat weight values for TRMNL
+        "weight_average": round(avg_weight, 1),
+        "weight_min": round(min_weight, 1),
+        "weight_max": round(max_weight, 1),
+        "weight_trend": weight_trend,
+        "weight_change": weight_change,
+        "weight_change_abs": abs(weight_change),
+        # Flat date range for TRMNL
+        "date_range_display": f"{local_start.strftime('%b %d')} - {local_end.strftime('%b %d, %Y')}" if local_start else "",
+        # Flat peak hour for TRMNL
+        "peak_hour_display": f"{peak_hour % 12 or 12}:00 {'AM' if peak_hour < 12 else 'PM'}",
+        # Nested structures (for main site)
         "date_range": {
             "start": local_start.strftime("%b %d") if local_start else None,
             "end": local_end.strftime("%b %d, %Y") if local_end else None,
@@ -278,8 +294,8 @@ def build_data_json(stats: dict, robot_name: str, cat_name: str) -> dict:
             "average": round(avg_weight, 1),
             "min": round(min_weight, 1),
             "max": round(max_weight, 1),
-            "trend": stats.get("weight_trend", "stable"),
-            "change": round(stats.get("weight_change", 0) or 0, 2),
+            "trend": weight_trend,
+            "change": weight_change,
         },
         "peak_hour": {
             "hour": peak_hour,

@@ -681,7 +681,7 @@
 
             // Slide 1: Intro
             document.getElementById('intro-title').textContent = `${catName}'s Wrapped`;
-            document.getElementById('intro-date-range').textContent = data.date_range.display;
+            document.getElementById('intro-date-range').textContent = data.date_range_display;
             document.getElementById('intro-cat-name').textContent = `🐱 ${catName} 🐱`;
             document.getElementById('intro-robot-name').textContent = `Powered by ${robotName}, a Litter-Robot`;
 
@@ -725,21 +725,21 @@
 
             // Slide 5: Weight
             document.getElementById('weight-title').textContent = `${catName}'s Weigh-Ins`;
-            document.getElementById('avg-weight').innerHTML = `${data.weight.average}<span style="font-size: 2rem;">lbs</span>`;
+            document.getElementById('avg-weight').innerHTML = `${data.weight_average}<span style="font-size: 2rem;">lbs</span>`;
             document.getElementById('weight-label').textContent = `average weight 🐱`;
-            document.getElementById('min-weight').textContent = data.weight.min;
-            document.getElementById('max-weight').textContent = data.weight.max;
+            document.getElementById('min-weight').textContent = data.weight_min;
+            document.getElementById('max-weight').textContent = data.weight_max;
 
             const trendText = {
                 gaining: '📈 Chonking up!',
                 losing: '📉 Slimming down!',
                 stable: '➡️ Purrfectly stable!'
             };
-            document.getElementById('weight-trend').textContent = trendText[data.weight.trend] || trendText.stable;
+            document.getElementById('weight-trend').textContent = trendText[data.weight_trend] || trendText.stable;
 
             // Slide 6: Peak Hour
             document.getElementById('peak-title').textContent = `${catName}'s Potty Hour`;
-            document.getElementById('peak-hour').textContent = data.peak_hour.display;
+            document.getElementById('peak-hour').textContent = data.peak_hour_display;
             document.getElementById('peak-count').textContent = `${data.peak_hour.count} visits at this time`;
 
             const hour = data.peak_hour.hour;
