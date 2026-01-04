@@ -1,0 +1,168 @@
+<style>
+  .header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  .weight-display {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+  .stats-row {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .chart-section {
+    width: 100%;
+  }
+  .chart-container {
+    width: 100%;
+    height: 130px;
+  }
+</style>
+
+<div class="view">
+  <div class="layout layout--col layout--top gap--xsmall">
+
+    <!-- Header: Cat name + Weight -->
+    <div class="header-section">
+      <span class="title title--large">{{ cat_name }}</span>
+      <div class="weight-display">
+        <span class="value value--tnums">{{ weight.average }}</span>
+        <span class="label">lbs</span>
+        {% if weight.trend == "gaining" %}
+          <span class="label label--outline">↑</span>
+        {% elsif weight.trend == "losing" %}
+          <span class="label label--outline">↓</span>
+        {% else %}
+          <span class="label label--outline">→</span>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Stats row -->
+    <div class="stats-row">
+      <div class="stat-item">
+        <span class="value value--small value--tnums">{{ visits_per_day }}</span>
+        <span class="label label--small">visits/day</span>
+      </div>
+      <div class="stat-item">
+        <span class="value value--small value--tnums">{{ total_visits }}</span>
+        <span class="label label--small">total</span>
+      </div>
+      <div class="stat-item">
+        <span class="value value--small value--tnums">{{ robot_stats.clean_cycles }}</span>
+        <span class="label label--small">cycles</span>
+      </div>
+    </div>
+
+    <!-- Visits chart -->
+    <div class="chart-section">
+      <span class="label label--small label--underline">Visits per day</span>
+      <div id="visits-chart" class="chart-container"></div>
+    </div>
+
+    <!-- Weight chart -->
+    <div class="chart-section">
+      <span class="label label--small label--underline">Weight (lbs)</span>
+      <div id="weight-chart" class="chart-container"></div>
+    </div>
+
+  </div>
+
+  <!-- Title bar -->
+  <div class="title_bar">
+    <span class="title">{{ date_range.display }}</span>
+    <span class="instance">{{ robot_name }}</span>
+  </div>
+</div>
+
+<script src="https://usetrmnl.com/js/highcharts/12.3.0/highcharts.js"></script>
+<script src="https://usetrmnl.com/js/chartkick/5.0.1/chartkick.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var baseOptions = {
+    adapter: "highcharts",
+    colors: ["#000000"],
+    library: {
+      chart: {
+        animation: false,
+        backgroundColor: 'transparent',
+        style: { fontFamily: 'inherit' },
+        spacing: [5, 0, 5, 0]
+      },
+      title: { text: null },
+      legend: { enabled: false },
+      xAxis: {
+        lineColor: '#000',
+        tickColor: '#000',
+        labels: { style: { color: '#000', fontSize: '8px' } }
+      },
+      yAxis: {
+        title: { text: null },
+        gridLineColor: '#ccc',
+        gridLineDashStyle: 'Dash',
+        labels: { style: { color: '#000', fontSize: '8px' } }
+      },
+      plotOptions: {
+        series: { animation: false, enableMouseTracking: false }
+      },
+      credits: { enabled: false },
+      tooltip: { enabled: false }
+    }
+  };
+
+  // Visits chart
+  var visitsData = [
+    {% for day in chart_data %}
+      ["{{ day.display }}", {{ day.count }}]{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+
+  new Chartkick.ColumnChart("visits-chart", visitsData, {
+    adapter: baseOptions.adapter,
+    colors: baseOptions.colors,
+    library: Object.assign({}, baseOptions.library, {
+      yAxis: Object.assign({}, baseOptions.library.yAxis, { allowDecimals: false }),
+      plotOptions: Object.assign({}, baseOptions.library.plotOptions, {
+        column: { borderColor: '#000', borderWidth: 1 }
+      })
+    })
+  });
+
+  // Weight chart
+  var weightData = [
+    {% for day in weight_history %}
+      ["{{ day.display }}", {{ day.weight }}]{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+
+  if (weightData.length > 0) {
+    new Chartkick.LineChart("weight-chart", weightData, {
+      adapter: baseOptions.adapter,
+      colors: baseOptions.colors,
+      library: Object.assign({}, baseOptions.library, {
+        yAxis: Object.assign({}, baseOptions.library.yAxis, {
+          min: {{ weight.min | minus: 0.5 }},
+          max: {{ weight.max | plus: 0.5 }}
+        }),
+        plotOptions: Object.assign({}, baseOptions.library.plotOptions, {
+          line: {
+            marker: { enabled: true, radius: 2, fillColor: '#000' },
+            lineWidth: 2
+          }
+        })
+      })
+    });
+  }
+});
+</script>

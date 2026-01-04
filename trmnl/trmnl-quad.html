@@ -1,0 +1,79 @@
+<style>
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  .weight-display {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+  .stats-grid {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+</style>
+
+<div class="view">
+  <div class="layout layout--col layout--top gap--small">
+
+    <!-- Header: Cat name + Weight -->
+    <div class="header-row">
+      <span class="title">{{ cat_name }}</span>
+      <div class="weight-display">
+        <span class="value value--tnums">{{ weight.average }}</span>
+        <span class="label label--small">lbs</span>
+        {% if weight.trend == "gaining" %}
+          <span class="label label--small label--outline">↑</span>
+        {% elsif weight.trend == "losing" %}
+          <span class="label label--small label--outline">↓</span>
+        {% else %}
+          <span class="label label--small label--outline">→</span>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Stats grid -->
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="value value--tnums">{{ visits_per_day }}</span>
+        <span class="label label--small">visits/day</span>
+      </div>
+      <div class="stat-item">
+        <span class="value value--tnums">{{ total_visits }}</span>
+        <span class="label label--small">total</span>
+      </div>
+      <div class="stat-item">
+        <span class="value value--tnums">{{ robot_stats.clean_cycles }}</span>
+        <span class="label label--small">cycles</span>
+      </div>
+    </div>
+
+    <!-- Timing stats -->
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="value value--tnums">{{ timing.longest_gap }}</span>
+        <span class="label label--small">longest gap</span>
+      </div>
+      <div class="stat-item">
+        <span class="value value--tnums">{{ timing.shortest_gap }}</span>
+        <span class="label label--small">shortest gap</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Title bar -->
+  <div class="title_bar">
+    <span class="title">{{ date_range.display }}</span>
+    <span class="instance">{{ robot_name }}</span>
+  </div>
+</div>
