@@ -90,8 +90,9 @@ def parse_activity_history(activities: list) -> dict:
         local_time = visit.timestamp.astimezone(LOCAL_TZ)
         visits_by_hour[local_time.hour] += 1
 
-    # Visits by date
+    # Visits by date and weights by date
     visits_by_date: dict[str, dict] = {}
+    weights_by_date: dict[str, list[float]] = {}
     for visit in visits:
         local_time = visit.timestamp.astimezone(LOCAL_TZ)
         date_key = local_time.strftime("%Y-%m-%d")
@@ -103,6 +104,12 @@ def parse_activity_history(activities: list) -> dict:
                 "display": local_time.strftime("%m/%d"),
             }
         visits_by_date[date_key]["count"] += 1
+
+        # Track weights by date
+        if visit.weight_lbs is not None:
+            if date_key not in weights_by_date:
+                weights_by_date[date_key] = []
+            weights_by_date[date_key].append(visit.weight_lbs)
 
     # Visit gaps
     visit_gaps: list[timedelta] = []
@@ -171,6 +178,7 @@ def parse_activity_history(activities: list) -> dict:
     return {
         "visits": visits,
         "weights": weights,
+        "weights_by_date": weights_by_date,
         "clean_cycles_completed": clean_cycles_completed,
         "sensor_interruptions": sensor_interruptions,
         "date_range": (date_range_start, date_range_end),
@@ -225,6 +233,17 @@ def build_data_json(stats: dict, robot_name: str, cat_name: str) -> dict:
         for d in sorted_dates
     ]
 
+    # Weight history (average weight per day)
+    weights_by_date = stats.get("weights_by_date", {})
+    weight_history = [
+        {
+            "display": visits_by_date[d]["display"],
+            "weight": round(sum(weights_by_date[d]) / len(weights_by_date[d]), 1),
+        }
+        for d in sorted_dates
+        if d in weights_by_date and weights_by_date[d]
+    ]
+
     busiest_date = None
     if visits_by_date:
         busiest_date_key = max(visits_by_date.keys(), key=lambda k: visits_by_date[k]["count"])
@@ -250,6 +269,7 @@ def build_data_json(stats: dict, robot_name: str, cat_name: str) -> dict:
         "total_visits": total_visits,
         "visits_per_day": round(visits_per_day, 1),
         "chart_data": chart_data,
+        "weight_history": weight_history,
         "timing": {
             "longest_gap": format_duration(stats["longest_gap"]) if stats["longest_gap"] else "N/A",
             "shortest_gap": format_duration(stats["shortest_gap"]) if stats["shortest_gap"] else "N/A",
