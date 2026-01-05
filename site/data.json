@@ -1,13 +1,13 @@
 {
   "cat_name": "Saba",
   "robot_name": "scoopy",
-  "generated_at": "2026-01-04T12:04:09.600023-08:00",
+  "generated_at": "2026-01-04T16:16:05.709833-08:00",
   "weight_average": 11.3,
   "weight_min": 10.5,
   "weight_max": 12.3,
   "weight_trend": "losing",
-  "weight_change": -0.12,
-  "weight_change_abs": 0.12,
+  "weight_change": -0.16,
+  "weight_change_abs": 0.16,
   "date_range_display": "Dec 28 - Jan 04, 2026",
   "peak_hour_display": "8:00 PM",
   "date_range": {
@@ -19,12 +19,12 @@
     "Early Bird"
   ],
   "total_visits": 22,
-  "visits_per_day": 3.3,
+  "visits_per_day": 3.2,
   "chart_data": [
     {
       "weekday": "Sun",
       "display": "12/28",
-      "count": 2
+      "count": 1
     },
     {
       "weekday": "Mon",
@@ -59,7 +59,7 @@
     {
       "weekday": "Sun",
       "display": "01/04",
-      "count": 3
+      "count": 4
     }
   ],
   "weight_history": [
@@ -93,7 +93,7 @@
     },
     {
       "display": "01/04",
-      "weight": 11.3
+      "weight": 11.2
     }
   ],
   "timing": {
@@ -105,7 +105,7 @@
     "min": 10.5,
     "max": 12.3,
     "trend": "losing",
-    "change": -0.12
+    "change": -0.16
   },
   "peak_hour": {
     "hour": 20,
@@ -113,14 +113,14 @@
     "display": "8:00 PM"
   },
   "busiest_date": {
-    "day_name": "Monday",
-    "display": "12/29",
-    "count": 3,
-    "is_weekend": false
+    "day_name": "Sunday",
+    "display": "01/04",
+    "count": 4,
+    "is_weekend": true
   },
   "robot_stats": {
-    "clean_cycles": 22,
-    "interruptions": 1
+    "clean_cycles": 23,
+    "interruptions": 3
   },
   "output": {
     "oz": 55.0,
