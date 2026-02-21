@@ -1,25 +1,26 @@
 {
   "cat_name": "Saba",
   "robot_name": "scoopy",
-  "generated_at": "2026-02-21T04:06:30.092530-08:00",
+  "generated_at": "2026-02-21T08:04:55.089831-08:00",
   "weight_average": 10.6,
   "weight_min": 9.4,
   "weight_max": 11.3,
   "weight_trend": "stable",
-  "weight_change": -0.01,
-  "weight_change_abs": 0.01,
-  "date_range_display": "Feb 14 - Feb 20, 2026",
+  "weight_change": -0.06,
+  "weight_change_abs": 0.06,
+  "date_range_display": "Feb 14 - Feb 21, 2026",
   "peak_hour_display": "10:00 AM",
   "date_range": {
     "start": "Feb 14",
-    "end": "Feb 20, 2026",
-    "display": "Feb 14 - Feb 20, 2026"
+    "end": "Feb 21, 2026",
+    "display": "Feb 14 - Feb 21, 2026"
   },
   "personality_traits": [
-    "Early Bird"
+    "Early Bird",
+    "Weekday Regular"
   ],
-  "total_visits": 28,
-  "visits_per_day": 4.6,
+  "total_visits": 29,
+  "visits_per_day": 4.5,
   "chart_data": [
     {
       "weekday": "Sun",
@@ -50,6 +51,11 @@
       "weekday": "Fri",
       "display": "02/20",
       "count": 3
+    },
+    {
+      "weekday": "Sat",
+      "display": "02/21",
+      "count": 1
     }
   ],
   "weight_history": [
@@ -76,6 +82,10 @@
     {
       "display": "02/20",
       "weight": 10.8
+    },
+    {
+      "display": "02/21",
+      "weight": 10.8
     }
   ],
   "timing": {
@@ -87,7 +97,7 @@
     "min": 9.4,
     "max": 11.3,
     "trend": "stable",
-    "change": -0.01
+    "change": -0.06
   },
   "peak_hour": {
     "hour": 10,
@@ -101,11 +111,11 @@
     "is_weekend": false
   },
   "robot_stats": {
-    "clean_cycles": 30,
+    "clean_cycles": 31,
     "interruptions": 2
   },
   "output": {
-    "oz": 70.0,
-    "lbs": 4.4
+    "oz": 72.0,
+    "lbs": 4.5
   }
 }
