@@ -1,31 +1,31 @@
 {
   "cat_name": "Saba",
   "robot_name": "scoopy",
-  "generated_at": "2026-02-26T04:13:29.752747-08:00",
+  "generated_at": "2026-02-26T08:18:50.360093-08:00",
   "weight_average": 10.7,
   "weight_min": 9.7,
   "weight_max": 11.3,
-  "weight_trend": "stable",
-  "weight_change": 0.05,
-  "weight_change_abs": 0.05,
-  "date_range_display": "Feb 19 - Feb 25, 2026",
-  "peak_hour_display": "5:00 AM",
+  "weight_trend": "losing",
+  "weight_change": -0.11,
+  "weight_change_abs": 0.11,
+  "date_range_display": "Feb 19 - Feb 26, 2026",
+  "peak_hour_display": "6:00 AM",
   "date_range": {
     "start": "Feb 19",
-    "end": "Feb 25, 2026",
-    "display": "Feb 19 - Feb 25, 2026"
+    "end": "Feb 26, 2026",
+    "display": "Feb 19 - Feb 26, 2026"
   },
   "personality_traits": [
     "Early Bird",
     "Creature of Habit"
   ],
   "total_visits": 20,
-  "visits_per_day": 3.0,
+  "visits_per_day": 2.9,
   "chart_data": [
     {
       "weekday": "Thu",
       "display": "02/19",
-      "count": 3
+      "count": 2
     },
     {
       "weekday": "Fri",
@@ -56,12 +56,17 @@
       "weekday": "Wed",
       "display": "02/25",
       "count": 3
+    },
+    {
+      "weekday": "Thu",
+      "display": "02/26",
+      "count": 1
     }
   ],
   "weight_history": [
     {
       "display": "02/19",
-      "weight": 10.4
+      "weight": 10.5
     },
     {
       "display": "02/20",
@@ -86,27 +91,31 @@
     {
       "display": "02/25",
       "weight": 10.1
+    },
+    {
+      "display": "02/26",
+      "weight": 10.0
     }
   ],
   "timing": {
     "longest_gap": "11h 19m",
-    "shortest_gap": "4h 13m"
+    "shortest_gap": "5h 25m"
   },
   "weight": {
     "average": 10.7,
     "min": 9.7,
     "max": 11.3,
-    "trend": "stable",
-    "change": 0.05
+    "trend": "losing",
+    "change": -0.11
   },
   "peak_hour": {
-    "hour": 5,
-    "count": 3,
-    "display": "5:00 AM"
+    "hour": 6,
+    "count": 4,
+    "display": "6:00 AM"
   },
   "busiest_date": {
-    "day_name": "Thursday",
-    "display": "02/19",
+    "day_name": "Friday",
+    "display": "02/20",
     "count": 3,
     "is_weekend": false
   },
