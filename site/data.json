@@ -1,26 +1,26 @@
 {
   "cat_name": "Saba",
   "robot_name": "scoopy",
-  "generated_at": "2026-03-22T05:07:03.273369-07:00",
+  "generated_at": "2026-03-22T09:05:48.034165-07:00",
   "weight_average": 10.9,
   "weight_min": 10.5,
-  "weight_max": 11.1,
-  "weight_trend": "losing",
-  "weight_change": -0.1,
-  "weight_change_abs": 0.1,
-  "date_range_display": "Mar 15 - Mar 21, 2026",
-  "peak_hour_display": "8:00 PM",
+  "weight_max": 11.3,
+  "weight_trend": "stable",
+  "weight_change": 0.0,
+  "weight_change_abs": 0.0,
+  "date_range_display": "Mar 15 - Mar 22, 2026",
+  "peak_hour_display": "6:00 AM",
   "date_range": {
     "start": "Mar 15",
-    "end": "Mar 21, 2026",
-    "display": "Mar 15 - Mar 21, 2026"
+    "end": "Mar 22, 2026",
+    "display": "Mar 15 - Mar 22, 2026"
   },
   "personality_traits": [
     "Evening Eliminator",
     "Weekday Regular"
   ],
-  "total_visits": 21,
-  "visits_per_day": 3.3,
+  "total_visits": 24,
+  "visits_per_day": 3.6,
   "chart_data": [
     {
       "weekday": "Sun",
@@ -56,6 +56,11 @@
       "weekday": "Sat",
       "display": "03/21",
       "count": 2
+    },
+    {
+      "weekday": "Sun",
+      "display": "03/22",
+      "count": 3
     }
   ],
   "weight_history": [
@@ -86,23 +91,27 @@
     {
       "display": "03/21",
       "weight": 10.9
+    },
+    {
+      "display": "03/22",
+      "weight": 11.1
     }
   ],
   "timing": {
     "longest_gap": "29h 43m",
-    "shortest_gap": "1h 21m"
+    "shortest_gap": "22m"
   },
   "weight": {
     "average": 10.9,
     "min": 10.5,
-    "max": 11.1,
-    "trend": "losing",
-    "change": -0.1
+    "max": 11.3,
+    "trend": "stable",
+    "change": 0.0
   },
   "peak_hour": {
-    "hour": 20,
-    "count": 3,
-    "display": "8:00 PM"
+    "hour": 6,
+    "count": 4,
+    "display": "6:00 AM"
   },
   "busiest_date": {
     "day_name": "Wednesday",
@@ -111,11 +120,11 @@
     "is_weekend": false
   },
   "robot_stats": {
-    "clean_cycles": 23,
+    "clean_cycles": 26,
     "interruptions": 2
   },
   "output": {
-    "oz": 52.0,
-    "lbs": 3.3
+    "oz": 60.0,
+    "lbs": 3.8
   }
 }
