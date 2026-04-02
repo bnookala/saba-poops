@@ -1,30 +1,31 @@
 {
   "cat_name": "Saba",
   "robot_name": "scoopy",
-  "generated_at": "2026-04-02T05:17:33.273912-07:00",
-  "weight_average": 11.2,
-  "weight_min": 10.8,
+  "generated_at": "2026-04-02T09:20:13.083009-07:00",
+  "weight_average": 11.1,
+  "weight_min": 10.7,
   "weight_max": 11.5,
-  "weight_trend": "stable",
-  "weight_change": -0.03,
-  "weight_change_abs": 0.03,
-  "date_range_display": "Mar 26 - Apr 01, 2026",
-  "peak_hour_display": "6:00 AM",
+  "weight_trend": "losing",
+  "weight_change": -0.13,
+  "weight_change_abs": 0.13,
+  "date_range_display": "Mar 26 - Apr 02, 2026",
+  "peak_hour_display": "2:00 PM",
   "date_range": {
     "start": "Mar 26",
-    "end": "Apr 01, 2026",
-    "display": "Mar 26 - Apr 01, 2026"
+    "end": "Apr 02, 2026",
+    "display": "Mar 26 - Apr 02, 2026"
   },
   "personality_traits": [
-    "Early Bird"
+    "Early Bird",
+    "Weekend Warrior"
   ],
   "total_visits": 21,
-  "visits_per_day": 3.2,
+  "visits_per_day": 3.1,
   "chart_data": [
     {
       "weekday": "Thu",
       "display": "03/26",
-      "count": 3
+      "count": 1
     },
     {
       "weekday": "Fri",
@@ -55,12 +56,17 @@
       "weekday": "Wed",
       "display": "04/01",
       "count": 3
+    },
+    {
+      "weekday": "Thu",
+      "display": "04/02",
+      "count": 2
     }
   ],
   "weight_history": [
     {
       "display": "03/26",
-      "weight": 11.2
+      "weight": 11.3
     },
     {
       "display": "03/27",
@@ -85,23 +91,27 @@
     {
       "display": "04/01",
       "weight": 11.2
+    },
+    {
+      "display": "04/02",
+      "weight": 10.8
     }
   ],
   "timing": {
     "longest_gap": "14h 56m",
-    "shortest_gap": "32m"
+    "shortest_gap": "1h 27m"
   },
   "weight": {
-    "average": 11.2,
-    "min": 10.8,
+    "average": 11.1,
+    "min": 10.7,
     "max": 11.5,
-    "trend": "stable",
-    "change": -0.03
+    "trend": "losing",
+    "change": -0.13
   },
   "peak_hour": {
-    "hour": 6,
-    "count": 5,
-    "display": "6:00 AM"
+    "hour": 14,
+    "count": 4,
+    "display": "2:00 PM"
   },
   "busiest_date": {
     "day_name": "Friday",
@@ -111,7 +121,7 @@
   },
   "robot_stats": {
     "clean_cycles": 21,
-    "interruptions": 6
+    "interruptions": 5
   },
   "output": {
     "oz": 52.0,
