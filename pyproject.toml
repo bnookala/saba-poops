@@ -5,6 +5,6 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "pylitterbot>=2025.0.0",
+    "pylitterbot>=2025.4.0",
     "python-dotenv>=1.2.1",
 ]

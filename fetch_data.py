@@ -25,6 +25,16 @@ PASSWORD = os.environ.get("LITTERBOT_PASSWORD")
 CAT_NAME = os.environ.get("CAT_NAME", "Kitty")
 
 
+def keep_existing_data(reason: str) -> bool:
+    """Keep the last generated data file when fresh data cannot be fetched."""
+    data_path = Path("site/data.json")
+    print(reason)
+    if not data_path.exists():
+        return False
+    print(f"Keeping existing data at: {data_path}")
+    return True
+
+
 @dataclass
 class CatVisit:
     """Represents a single cat visit to the litter box."""
@@ -329,8 +339,9 @@ async def main():
         await account.connect(username=USERNAME, password=PASSWORD, load_robots=True)
 
         if not account.robots:
-            print("No robots found on this account!")
-            return False
+            return keep_existing_data(
+                "No robots found on this account. Keeping the last generated data."
+            )
 
         robot = account.robots[0]
         print(f"Fetching activity for: {robot.name}")
