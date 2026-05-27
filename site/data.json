@@ -1,30 +1,30 @@
 {
   "cat_name": "Saba",
   "robot_name": "scoopy",
-  "generated_at": "2026-05-27T06:07:23.656736-07:00",
+  "generated_at": "2026-05-27T10:04:39.880949-07:00",
   "weight_average": 11.1,
   "weight_min": 10.4,
   "weight_max": 11.4,
-  "weight_trend": "stable",
-  "weight_change": 0.07,
-  "weight_change_abs": 0.07,
-  "date_range_display": "May 20 - May 26, 2026",
+  "weight_trend": "gaining",
+  "weight_change": 0.1,
+  "weight_change_abs": 0.1,
+  "date_range_display": "May 20 - May 27, 2026",
   "peak_hour_display": "8:00 AM",
   "date_range": {
     "start": "May 20",
-    "end": "May 26, 2026",
-    "display": "May 20 - May 26, 2026"
+    "end": "May 27, 2026",
+    "display": "May 20 - May 27, 2026"
   },
   "personality_traits": [
     "Evening Eliminator"
   ],
-  "total_visits": 21,
+  "total_visits": 22,
   "visits_per_day": 3.2,
   "chart_data": [
     {
       "weekday": "Wed",
       "display": "05/20",
-      "count": 3
+      "count": 2
     },
     {
       "weekday": "Thu",
@@ -55,6 +55,11 @@
       "weekday": "Tue",
       "display": "05/26",
       "count": 3
+    },
+    {
+      "weekday": "Wed",
+      "display": "05/27",
+      "count": 2
     }
   ],
   "weight_history": [
@@ -85,22 +90,26 @@
     {
       "display": "05/26",
       "weight": 11.1
+    },
+    {
+      "display": "05/27",
+      "weight": 11.0
     }
   ],
   "timing": {
     "longest_gap": "14h 15m",
-    "shortest_gap": "2h 20m"
+    "shortest_gap": "25m"
   },
   "weight": {
     "average": 11.1,
     "min": 10.4,
     "max": 11.4,
-    "trend": "stable",
-    "change": 0.07
+    "trend": "gaining",
+    "change": 0.1
   },
   "peak_hour": {
     "hour": 8,
-    "count": 3,
+    "count": 4,
     "display": "8:00 AM"
   },
   "busiest_date": {
@@ -110,11 +119,11 @@
     "is_weekend": false
   },
   "robot_stats": {
-    "clean_cycles": 23,
-    "interruptions": 23
+    "clean_cycles": 24,
+    "interruptions": 24
   },
   "output": {
-    "oz": 52.0,
-    "lbs": 3.3
+    "oz": 55.0,
+    "lbs": 3.4
   }
 }
