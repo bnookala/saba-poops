@@ -1,7 +1,7 @@
 {
   "cat_name": "Saba",
   "robot_name": "scoopy",
-  "generated_at": "2026-06-20T09:31:13.657090-07:00",
+  "generated_at": "2026-06-20T13:27:59.598909-07:00",
   "weight_average": 11.1,
   "weight_min": 10.7,
   "weight_max": 11.8,
@@ -19,13 +19,13 @@
     "Evening Eliminator",
     "Weekday Regular"
   ],
-  "total_visits": 24,
+  "total_visits": 23,
   "visits_per_day": 3.5,
   "chart_data": [
     {
       "weekday": "Sat",
       "display": "06/13",
-      "count": 3
+      "count": 2
     },
     {
       "weekday": "Sun",
@@ -66,7 +66,7 @@
   "weight_history": [
     {
       "display": "06/13",
-      "weight": 11.1
+      "weight": 11.0
     },
     {
       "display": "06/14",
@@ -120,11 +120,11 @@
     "is_weekend": false
   },
   "robot_stats": {
-    "clean_cycles": 25,
-    "interruptions": 15
+    "clean_cycles": 24,
+    "interruptions": 13
   },
   "output": {
-    "oz": 60.0,
-    "lbs": 3.8
+    "oz": 58.0,
+    "lbs": 3.6
   }
 }
