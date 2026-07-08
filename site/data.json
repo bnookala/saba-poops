@@ -1,13 +1,13 @@
 {
   "cat_name": "Saba",
   "robot_name": "scoopy",
-  "generated_at": "2026-07-08T06:48:52.300755-07:00",
+  "generated_at": "2026-07-08T10:23:17.727045-07:00",
   "weight_average": 11.3,
   "weight_min": 11.1,
   "weight_max": 11.6,
   "weight_trend": "losing",
-  "weight_change": -0.1,
-  "weight_change_abs": 0.1,
+  "weight_change": -0.11,
+  "weight_change_abs": 0.11,
   "date_range_display": "Jul 01 - Jul 08, 2026",
   "peak_hour_display": "5:00 AM",
   "date_range": {
@@ -18,13 +18,13 @@
   "personality_traits": [
     "Night Owl"
   ],
-  "total_visits": 19,
-  "visits_per_day": 2.8,
+  "total_visits": 18,
+  "visits_per_day": 2.7,
   "chart_data": [
     {
       "weekday": "Wed",
       "display": "07/01",
-      "count": 3
+      "count": 2
     },
     {
       "weekday": "Thu",
@@ -105,7 +105,7 @@
     "min": 11.1,
     "max": 11.6,
     "trend": "losing",
-    "change": -0.1
+    "change": -0.11
   },
   "peak_hour": {
     "hour": 5,
@@ -113,17 +113,17 @@
     "display": "5:00 AM"
   },
   "busiest_date": {
-    "day_name": "Wednesday",
-    "display": "07/01",
+    "day_name": "Thursday",
+    "display": "07/02",
     "count": 3,
     "is_weekend": false
   },
   "robot_stats": {
-    "clean_cycles": 19,
+    "clean_cycles": 18,
     "interruptions": 15
   },
   "output": {
-    "oz": 48.0,
-    "lbs": 3.0
+    "oz": 45.0,
+    "lbs": 2.8
   }
 }
