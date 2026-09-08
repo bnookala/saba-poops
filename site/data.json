@@ -1,19 +1,19 @@
 {
   "cat_name": "Saba",
   "robot_name": "scoopy",
-  "generated_at": "2026-09-07T19:33:36.979712-07:00",
+  "generated_at": "2026-09-08T01:29:19.476018-07:00",
   "weight_average": 10.8,
   "weight_min": 10.3,
   "weight_max": 11.2,
   "weight_trend": "stable",
-  "weight_change": -0.04,
-  "weight_change_abs": 0.04,
-  "date_range_display": "Aug 31 - Sep 07, 2026",
+  "weight_change": 0.01,
+  "weight_change_abs": 0.01,
+  "date_range_display": "Sep 01 - Sep 08, 2026",
   "peak_hour_display": "7:00 PM",
   "date_range": {
-    "start": "Aug 31",
-    "end": "Sep 07, 2026",
-    "display": "Aug 31 - Sep 07, 2026"
+    "start": "Sep 01",
+    "end": "Sep 08, 2026",
+    "display": "Sep 01 - Sep 08, 2026"
   },
   "personality_traits": [
     "Evening Eliminator",
@@ -23,14 +23,9 @@
   "visits_per_day": 3.2,
   "chart_data": [
     {
-      "weekday": "Mon",
-      "display": "08/31",
-      "count": 1
-    },
-    {
       "weekday": "Tue",
       "display": "09/01",
-      "count": 3
+      "count": 2
     },
     {
       "weekday": "Wed",
@@ -60,17 +55,18 @@
     {
       "weekday": "Mon",
       "display": "09/07",
-      "count": 3
+      "count": 4
+    },
+    {
+      "weekday": "Tue",
+      "display": "09/08",
+      "count": 1
     }
   ],
   "weight_history": [
     {
-      "display": "08/31",
-      "weight": 10.9
-    },
-    {
       "display": "09/01",
-      "weight": 10.7
+      "weight": 10.8
     },
     {
       "display": "09/02",
@@ -94,19 +90,23 @@
     },
     {
       "display": "09/07",
+      "weight": 10.9
+    },
+    {
+      "display": "09/08",
       "weight": 11.0
     }
   ],
   "timing": {
     "longest_gap": "13h 22m",
-    "shortest_gap": "2h 37m"
+    "shortest_gap": "2h 13m"
   },
   "weight": {
     "average": 10.8,
     "min": 10.3,
     "max": 11.2,
     "trend": "stable",
-    "change": -0.04
+    "change": 0.01
   },
   "peak_hour": {
     "hour": 19,
@@ -121,7 +121,7 @@
   },
   "robot_stats": {
     "clean_cycles": 22,
-    "interruptions": 23
+    "interruptions": 22
   },
   "output": {
     "oz": 55.0,
