@@ -1,25 +1,25 @@
 {
   "cat_name": "Saba",
   "robot_name": "scoopy",
-  "generated_at": "2026-09-09T08:44:56.369359-07:00",
-  "weight_average": 10.8,
+  "generated_at": "2026-09-09T11:59:34.105426-07:00",
+  "weight_average": 10.9,
   "weight_min": 10.3,
-  "weight_max": 11.3,
+  "weight_max": 14.7,
   "weight_trend": "gaining",
-  "weight_change": 0.19,
-  "weight_change_abs": 0.19,
-  "date_range_display": "Sep 02 - Sep 08, 2026",
+  "weight_change": 0.4,
+  "weight_change_abs": 0.4,
+  "date_range_display": "Sep 02 - Sep 09, 2026",
   "peak_hour_display": "7:00 PM",
   "date_range": {
     "start": "Sep 02",
-    "end": "Sep 08, 2026",
-    "display": "Sep 02 - Sep 08, 2026"
+    "end": "Sep 09, 2026",
+    "display": "Sep 02 - Sep 09, 2026"
   },
   "personality_traits": [
     "Evening Eliminator"
   ],
-  "total_visits": 28,
-  "visits_per_day": 4.5,
+  "total_visits": 31,
+  "visits_per_day": 4.6,
   "chart_data": [
     {
       "weekday": "Wed",
@@ -54,7 +54,12 @@
     {
       "weekday": "Tue",
       "display": "09/08",
-      "count": 10
+      "count": 11
+    },
+    {
+      "weekday": "Wed",
+      "display": "09/09",
+      "count": 2
     }
   ],
   "weight_history": [
@@ -84,19 +89,23 @@
     },
     {
       "display": "09/08",
-      "weight": 10.9
+      "weight": 11.3
+    },
+    {
+      "display": "09/09",
+      "weight": 10.8
     }
   ],
   "timing": {
-    "longest_gap": "10h 38m",
+    "longest_gap": "11h 9m",
     "shortest_gap": "17m"
   },
   "weight": {
-    "average": 10.8,
+    "average": 10.9,
     "min": 10.3,
-    "max": 11.3,
+    "max": 14.7,
     "trend": "gaining",
-    "change": 0.19
+    "change": 0.4
   },
   "peak_hour": {
     "hour": 19,
@@ -106,15 +115,15 @@
   "busiest_date": {
     "day_name": "Tuesday",
     "display": "09/08",
-    "count": 10,
+    "count": 11,
     "is_weekend": false
   },
   "robot_stats": {
-    "clean_cycles": 28,
+    "clean_cycles": 31,
     "interruptions": 28
   },
   "output": {
-    "oz": 70.0,
-    "lbs": 4.4
+    "oz": 78.0,
+    "lbs": 4.8
   }
 }
