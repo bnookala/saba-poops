@@ -1,27 +1,27 @@
 {
   "cat_name": "Saba",
   "robot_name": "scoopy",
-  "generated_at": "2026-09-22T19:50:49.484708-07:00",
-  "weight_average": 11.2,
+  "generated_at": "2026-09-23T01:59:20.421384-07:00",
+  "weight_average": 11.1,
   "weight_min": 10.3,
   "weight_max": 17.6,
   "weight_trend": "gaining",
-  "weight_change": 0.77,
-  "weight_change_abs": 0.77,
-  "date_range_display": "Sep 16 - Sep 22, 2026",
-  "peak_hour_display": "5:00 AM",
+  "weight_change": 0.65,
+  "weight_change_abs": 0.65,
+  "date_range_display": "Sep 16 - Sep 23, 2026",
+  "peak_hour_display": "8:00 PM",
   "date_range": {
     "start": "Sep 16",
-    "end": "Sep 22, 2026",
-    "display": "Sep 16 - Sep 22, 2026"
+    "end": "Sep 23, 2026",
+    "display": "Sep 16 - Sep 23, 2026"
   },
   "personality_traits": [
     "Night Owl",
     "Chaotic Pooper",
     "Weekday Regular"
   ],
-  "total_visits": 17,
-  "visits_per_day": 2.6,
+  "total_visits": 19,
+  "visits_per_day": 2.8,
   "chart_data": [
     {
       "weekday": "Wed",
@@ -46,7 +46,12 @@
     {
       "weekday": "Tue",
       "display": "09/22",
-      "count": 4
+      "count": 5
+    },
+    {
+      "weekday": "Wed",
+      "display": "09/23",
+      "count": 1
     }
   ],
   "weight_history": [
@@ -69,6 +74,10 @@
     {
       "display": "09/22",
       "weight": 10.7
+    },
+    {
+      "display": "09/23",
+      "weight": 11.1
     }
   ],
   "timing": {
@@ -76,29 +85,29 @@
     "shortest_gap": "12m"
   },
   "weight": {
-    "average": 11.2,
+    "average": 11.1,
     "min": 10.3,
     "max": 17.6,
     "trend": "gaining",
-    "change": 0.77
+    "change": 0.65
   },
   "peak_hour": {
-    "hour": 5,
+    "hour": 20,
     "count": 2,
-    "display": "5:00 AM"
+    "display": "8:00 PM"
   },
   "busiest_date": {
-    "day_name": "Wednesday",
-    "display": "09/16",
-    "count": 4,
+    "day_name": "Tuesday",
+    "display": "09/22",
+    "count": 5,
     "is_weekend": false
   },
   "robot_stats": {
-    "clean_cycles": 18,
+    "clean_cycles": 20,
     "interruptions": 5
   },
   "output": {
-    "oz": 42.0,
-    "lbs": 2.7
+    "oz": 48.0,
+    "lbs": 3.0
   }
 }
