@@ -1,31 +1,31 @@
 {
   "cat_name": "Saba",
   "robot_name": "scoopy",
-  "generated_at": "2026-10-19T02:29:42.239540-07:00",
-  "weight_average": 10.7,
+  "generated_at": "2026-10-19T11:09:06.994453-07:00",
+  "weight_average": 10.6,
   "weight_min": 10.1,
   "weight_max": 11.0,
-  "weight_trend": "stable",
-  "weight_change": -0.09,
-  "weight_change_abs": 0.09,
-  "date_range_display": "Oct 12 - Oct 18, 2026",
+  "weight_trend": "losing",
+  "weight_change": -0.17,
+  "weight_change_abs": 0.17,
+  "date_range_display": "Oct 12 - Oct 19, 2026",
   "peak_hour_display": "6:00 AM",
   "date_range": {
     "start": "Oct 12",
-    "end": "Oct 18, 2026",
-    "display": "Oct 12 - Oct 18, 2026"
+    "end": "Oct 19, 2026",
+    "display": "Oct 12 - Oct 19, 2026"
   },
   "personality_traits": [
-    "Evening Eliminator",
+    "Early Bird",
     "Weekend Warrior"
   ],
-  "total_visits": 17,
-  "visits_per_day": 2.6,
+  "total_visits": 19,
+  "visits_per_day": 2.8,
   "chart_data": [
     {
       "weekday": "Mon",
       "display": "10/12",
-      "count": 2
+      "count": 1
     },
     {
       "weekday": "Tue",
@@ -56,12 +56,17 @@
       "weekday": "Sun",
       "display": "10/18",
       "count": 3
+    },
+    {
+      "weekday": "Mon",
+      "display": "10/19",
+      "count": 3
     }
   ],
   "weight_history": [
     {
       "display": "10/12",
-      "weight": 11.0
+      "weight": 10.9
     },
     {
       "display": "10/13",
@@ -86,22 +91,26 @@
     {
       "display": "10/18",
       "weight": 10.7
+    },
+    {
+      "display": "10/19",
+      "weight": 10.5
     }
   ],
   "timing": {
     "longest_gap": "13h 57m",
-    "shortest_gap": "1h 13m"
+    "shortest_gap": "1h 10m"
   },
   "weight": {
-    "average": 10.7,
+    "average": 10.6,
     "min": 10.1,
     "max": 11.0,
-    "trend": "stable",
-    "change": -0.09
+    "trend": "losing",
+    "change": -0.17
   },
   "peak_hour": {
     "hour": 6,
-    "count": 5,
+    "count": 6,
     "display": "6:00 AM"
   },
   "busiest_date": {
@@ -111,11 +120,11 @@
     "is_weekend": false
   },
   "robot_stats": {
-    "clean_cycles": 18,
-    "interruptions": 16
+    "clean_cycles": 20,
+    "interruptions": 19
   },
   "output": {
-    "oz": 42.0,
-    "lbs": 2.7
+    "oz": 48.0,
+    "lbs": 3.0
   }
 }
