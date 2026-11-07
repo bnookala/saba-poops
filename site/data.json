@@ -1,15 +1,15 @@
 {
   "cat_name": "Saba",
   "robot_name": "scoopy",
-  "generated_at": "2026-11-07T11:46:43.150071-08:00",
+  "generated_at": "2026-11-07T15:18:31.112111-08:00",
   "weight_average": 10.2,
   "weight_min": 9.7,
   "weight_max": 10.7,
   "weight_trend": "stable",
-  "weight_change": 0.05,
-  "weight_change_abs": 0.05,
+  "weight_change": 0.04,
+  "weight_change_abs": 0.04,
   "date_range_display": "Oct 31 - Nov 07, 2026",
-  "peak_hour_display": "12:00 PM",
+  "peak_hour_display": "5:00 AM",
   "date_range": {
     "start": "Oct 31",
     "end": "Nov 07, 2026",
@@ -19,13 +19,13 @@
     "Afternoon Aristocat",
     "Weekday Regular"
   ],
-  "total_visits": 18,
-  "visits_per_day": 2.7,
+  "total_visits": 17,
+  "visits_per_day": 2.6,
   "chart_data": [
     {
       "weekday": "Sat",
       "display": "10/31",
-      "count": 2
+      "count": 1
     },
     {
       "weekday": "Sun",
@@ -65,10 +65,6 @@
   ],
   "weight_history": [
     {
-      "display": "10/31",
-      "weight": 10.2
-    },
-    {
       "display": "11/01",
       "weight": 10.3
     },
@@ -106,12 +102,12 @@
     "min": 9.7,
     "max": 10.7,
     "trend": "stable",
-    "change": 0.05
+    "change": 0.04
   },
   "peak_hour": {
-    "hour": 12,
+    "hour": 5,
     "count": 3,
-    "display": "12:00 PM"
+    "display": "5:00 AM"
   },
   "busiest_date": {
     "day_name": "Friday",
@@ -120,11 +116,11 @@
     "is_weekend": false
   },
   "robot_stats": {
-    "clean_cycles": 18,
-    "interruptions": 3
+    "clean_cycles": 17,
+    "interruptions": 2
   },
   "output": {
-    "oz": 45.0,
-    "lbs": 2.8
+    "oz": 42.0,
+    "lbs": 2.7
   }
 }
