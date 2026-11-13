@@ -1,31 +1,26 @@
 {
   "cat_name": "Saba",
   "robot_name": "scoopy",
-  "generated_at": "2026-11-12T13:59:38.866854-08:00",
-  "weight_average": 10.2,
+  "generated_at": "2026-11-12T20:36:24.630742-08:00",
+  "weight_average": 10.1,
   "weight_min": 9.9,
-  "weight_max": 10.7,
+  "weight_max": 10.4,
   "weight_trend": "stable",
-  "weight_change": -0.08,
-  "weight_change_abs": 0.08,
-  "date_range_display": "Nov 05 - Nov 11, 2026",
+  "weight_change": -0.05,
+  "weight_change_abs": 0.05,
+  "date_range_display": "Nov 06 - Nov 12, 2026",
   "peak_hour_display": "5:00 AM",
   "date_range": {
-    "start": "Nov 05",
-    "end": "Nov 11, 2026",
-    "display": "Nov 05 - Nov 11, 2026"
+    "start": "Nov 06",
+    "end": "Nov 12, 2026",
+    "display": "Nov 06 - Nov 12, 2026"
   },
   "personality_traits": [
     "Afternoon Aristocat"
   ],
   "total_visits": 17,
-  "visits_per_day": 2.9,
+  "visits_per_day": 2.6,
   "chart_data": [
-    {
-      "weekday": "Thu",
-      "display": "11/05",
-      "count": 1
-    },
     {
       "weekday": "Fri",
       "display": "11/06",
@@ -55,13 +50,14 @@
       "weekday": "Wed",
       "display": "11/11",
       "count": 1
+    },
+    {
+      "weekday": "Thu",
+      "display": "11/12",
+      "count": 1
     }
   ],
   "weight_history": [
-    {
-      "display": "11/05",
-      "weight": 10.7
-    },
     {
       "display": "11/06",
       "weight": 10.1
@@ -85,18 +81,22 @@
     {
       "display": "11/11",
       "weight": 10.2
+    },
+    {
+      "display": "11/12",
+      "weight": 9.9
     }
   ],
   "timing": {
-    "longest_gap": "15h 41m",
+    "longest_gap": "26h 38m",
     "shortest_gap": "45m"
   },
   "weight": {
-    "average": 10.2,
+    "average": 10.1,
     "min": 9.9,
-    "max": 10.7,
+    "max": 10.4,
     "trend": "stable",
-    "change": -0.08
+    "change": -0.05
   },
   "peak_hour": {
     "hour": 5,
@@ -111,7 +111,7 @@
   },
   "robot_stats": {
     "clean_cycles": 17,
-    "interruptions": 13
+    "interruptions": 14
   },
   "output": {
     "oz": 42.0,
